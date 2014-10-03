@@ -1,6 +1,7 @@
 package main
 
 /*
+#include <stdio.h>
 #include "jpegoptim/jpegoptim.h"
 extern void jpeg_memory_dest(j_compress_ptr cinfo, unsigned char **bufptr, size_t *bufsizeptr, size_t incsize);
 */
