@@ -1,10 +1,13 @@
+CGO=go tool cgo
+SRC=jpegoptim-src
+
 default: build
 
-jpegoptim-src:
-	@mkdir jpegoptim-src
-	@git clone git@github.com:tjko/jpegoptim.git jpegoptim-src
+$(SRC):
+	@mkdir $(SRC)
+	@git clone git@github.com:tjko/jpegoptim.git $(SRC)
 
-build: jpegoptim-src jpegoptim.h jpegoptim.go
-	@go tool cgo jpegoptim.go
+build: $(SRC) jpegoptim.h jpegoptim.go
+	@$(CGO) -debug-gcc jpegoptim.go
 
 .PHONY: clean build
