@@ -1,5 +1,4 @@
 GO=go
-CGO=go tool cgo
 REPO=git@github.com:tjko/jpegoptim.git
 SRC=jpegoptim-src
 
@@ -9,11 +8,11 @@ $(SRC):
 	@mkdir $(SRC)
 	@git clone $(REPO) $(SRC)
 
-build: $(SRC) jpegoptim.h jpegoptim.go
+build: $(SRC) jpegoptim.go
 	# configure
 	@cd $(SRC);./configure --prefix=`pwd`/local
 
-	# apply patch
+	# apply patch to jpegoptim/Makefile
 	@patch -u $(SRC)/Makefile < Makefile.patch
 
 	# comment out main function in jpegoptim.c
@@ -25,4 +24,4 @@ build: $(SRC) jpegoptim.h jpegoptim.go
 	# build
 	@$(GO) build jpegoptim.go
 
-.PHONY: clean build
+.PHONY: build
