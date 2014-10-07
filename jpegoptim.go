@@ -13,7 +13,6 @@ import "C"
 import (
 	"fmt"
 	"log"
-	"errors"
 	"os"
 )
 
@@ -21,17 +20,25 @@ func main() {
 	args := os.Args[1:]
 	fmt.Println("jpegoptim.go main", args)
 
-	if !os.IsExist(args[0]) {
-		log.Fatal("argument file does not exist")
+	if len(args) == 0 {
+		log.Fatal("There is no argument")
+	}
+
+	_, err := os.Stat(args[0])
+	if os.IsNotExist(err) {
+		log.Fatal("Specified file does not exist")
 	}
 
 	file, err := os.Open(args[0])
 	if err != nil {
-		log.fatal(err)
+		log.Fatal(err)
 	}
 	defer file.Close()
 
+	//var cinfo C.struct_jpeg_compress_struct
+	//var bufptr *C.uchar
+	//var bufsizeptr C.size_t
+	//var incsize C.size_t
 
-	// cinfo := C.struct_j_compress_ptr{}
-	// C.jpeg_memory_dest(&cinfo)
+	//C.jpeg_memory_dest(&cinfo, &bufptr, &bufsizeptr, &incsize)
 }
