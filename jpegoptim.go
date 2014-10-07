@@ -10,8 +10,28 @@ package main
 extern void jpeg_memory_dest(j_compress_ptr cinfo, unsigned char **bufptr, size_t *bufsizeptr, size_t incsize);
 */
 import "C"
-import "fmt"
+import (
+	"fmt"
+	"log"
+	"errors"
+	"os"
+)
 
 func main() {
-	fmt.Println("jpegoptim.go main")
+	args := os.Args[1:]
+	fmt.Println("jpegoptim.go main", args)
+
+	if !os.IsExist(args[0]) {
+		log.Fatal("argument file does not exist")
+	}
+
+	file, err := os.Open(args[0])
+	if err != nil {
+		log.fatal(err)
+	}
+	defer file.Close()
+
+
+	// cinfo := C.struct_j_compress_ptr{}
+	// C.jpeg_memory_dest(&cinfo)
 }
