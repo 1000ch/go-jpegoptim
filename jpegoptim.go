@@ -13,15 +13,11 @@ extern int jpegoptim_main(int argc, char **argv);
 */
 import "C"
 import (
-	"fmt"
 	"os"
 	"strings"
 )
 
 func main() {
-	args := os.Args[1:]
-	fmt.Println("jpegoptim.go main", args)
-
 	var argc C.int
 	var argv *C.char
 
