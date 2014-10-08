@@ -8,7 +8,7 @@ $(SRC):
 	@mkdir $(SRC)
 	@git clone $(REPO) $(SRC)
 
-build: $(SRC) jpegoptim.go
+patch:
 	# configure
 	@cd $(SRC);./configure --prefix=`pwd`/local
 
@@ -18,6 +18,7 @@ build: $(SRC) jpegoptim.go
 	# comment out main function in jpegoptim.c
 	@sed -e "287,854d" $(SRC)/jpegoptim.c
 
+build: $(SRC) jpegoptim.go
 	# make
 	@cd $(SRC);make all
 
