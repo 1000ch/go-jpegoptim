@@ -15,6 +15,7 @@ import "C"
 import (
 	"fmt"
 	"os"
+	"strings"
 )
 
 func main() {
@@ -25,6 +26,7 @@ func main() {
 	var argv *C.char
 
 	argc = C.int(len(os.Args))
+	argv = C.CString(strings.Join(os.Args, " "))
 
 	C.jpegoptim_main(argc, &argv)
 }
