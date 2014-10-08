@@ -35,10 +35,10 @@ func main() {
 	}
 	defer file.Close()
 
-	//var cinfo C.struct_jpeg_compress_struct
-	//var bufptr *C.uchar
-	//var bufsizeptr C.size_t
-	//var incsize C.size_t
+	var cinfo C.struct_jpeg_compress_struct
+	var bufptr *C.uchar
+	var bufsizeptr C.size_t
+	var incsize C.size_t
 
-	//C.jpeg_memory_dest(&cinfo, &bufptr, &bufsizeptr, &incsize)
+	C.jpeg_memory_dest(&cinfo, &bufptr, &bufsizeptr, incsize)
 }
