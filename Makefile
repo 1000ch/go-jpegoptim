@@ -5,24 +5,28 @@ SRC=jpegoptim-src
 default: patch build
 
 $(SRC):
+	@echo "+++source preparing+++"
 	@mkdir $(SRC)
 	@git clone $(REPO) $(SRC)
 
 build: $(SRC) jpegoptim.go
+	@echo "+++building+++"
 	# make
 	@cd $(SRC);make all
 
 	# build
 	@$(GO) build jpegoptim.go
 
-.PHONY: build
-
 patch: $(SRC)
+	@echo "+++patch applying+++"
+
 	# configure
 	@cd $(SRC);./configure --prefix=`pwd`/local
 
 	# apply patch to jpegoptim/Makefile
 	@patch -u $(SRC)/Makefile < Makefile.patch
 
-	# comment out main function in jpegoptim.c
-	@sed -e "287,854d" $(SRC)/jpegoptim.c
+	# apply patch to jpegoptim/jpegoptim.c
+	@patch -u $(SRC)/jpegoptim.c < jpegoptim.c.patch
+
+.PHONY: patch build
