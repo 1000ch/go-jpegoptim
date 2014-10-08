@@ -14,15 +14,17 @@ extern int jpegoptim_main(int argc, char **argv);
 import "C"
 import (
 	"os"
-	"strings"
 )
 
 func main() {
 	var argc C.int
-	var argv *C.char
+	var argv []*C.char
 
 	argc = C.int(len(os.Args))
-	argv = C.CString(strings.Join(os.Args, " "))
+	argv = make([]*C.char, argc)
+	for i, arg := range os.Args {
+		argv[i] = C.CString(arg)
+	}
 
-	C.jpegoptim_main(argc, &argv)
+	C.jpegoptim_main(argc, (**C.char)(&argv[0]))
 }
