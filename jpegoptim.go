@@ -21,5 +21,10 @@ func main() {
 	args := os.Args[1:]
 	fmt.Println("jpegoptim.go main", args)
 
-	C.jpegoptim_main()
+	var argc C.int
+	var argv *C.char
+
+	argc = C.int(len(os.Args))
+
+	C.jpegoptim_main(argc, &argv)
 }
