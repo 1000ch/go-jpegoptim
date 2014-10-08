@@ -5,21 +5,18 @@ SRC=jpegoptim-src
 default: patch build
 
 $(SRC):
-	@echo "+++source preparing+++"
+	# prepare source
 	@mkdir $(SRC)
 	@git clone $(REPO) $(SRC)
 
 build: $(SRC) jpegoptim.go
-	@echo "+++building+++"
 	# make
-	@cd $(SRC);make all
+	@cd $(SRC);make libjpegoptim.a
 
 	# build
 	@$(GO) build jpegoptim.go
 
 patch: $(SRC)
-	@echo "+++patch applying+++"
-
 	# configure
 	@cd $(SRC);./configure --prefix=`pwd`/local
 
